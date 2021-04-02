@@ -4,3 +4,7 @@ jdk:
 install: true
 script: 
 - mvn install
+deploy:
+  skip-cleanup: true
+  github-token: $github_token
+  local-dir: public
