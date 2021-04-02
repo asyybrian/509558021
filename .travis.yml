@@ -4,4 +4,3 @@ jdk:
 install: true
 script: 
 - mvn install
-© 2021 GitHub, Inc.
