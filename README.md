@@ -1,6 +1,7 @@
 # asyybrian.cs09g(509558021)
 [![Build Status](https://travis-ci.com/asyybrian/asyybrian.cs09g.svg?branch=main)](https://travis-ci.com/asyybrian/asyybrian.cs09g)
-lab3用
+
+NYCU_Software_Testing_2021_Lab_3
 
 成功案例:
 ![sucess-1](https://user-images.githubusercontent.com/81799051/113429798-ae9ce100-940b-11eb-96ba-b3a60a377389.PNG)
