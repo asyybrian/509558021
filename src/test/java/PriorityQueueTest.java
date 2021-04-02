@@ -1,75 +1,54 @@
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import java.util.*;
+
+import java.util.PriorityQueue;
 import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.Test;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-
-
-public class PriorityQueueTest  {
-    static Stream<Arguments> test_provide(){
+public class PriorityQueueTest{
+    public static Stream<Arguments> streamParameters() {
         return Stream.of(
-                Arguments.of(new int[]{3,1,2}, new int[]{1,2,3}),
-                Arguments.of(new int[]{-3,-1,-2,5},new int[]{-3,-2,-1,5} ),
-                Arguments.of(new int[]{3,-2,-5,-1,2},new int[]{-5,-2,-1,2,3} ),
-                Arguments.of(new int[]{-3,1,11,0,9,3},new int[]{-3,0,1,3,9,11} ),
-                Arguments.of(new int[]{3,7,2,-1,-2},new int[]{-2,-1,2,3,7} )
+                arguments(new int[]{1, 3, 4, 2}, new int[]{1, 2, 3, 4}),
+                arguments(new int[]{7, 9, 2, 5}, new int[]{2, 5, 7, 9}),
+                arguments(new int[]{5, 8, 0, 2}, new int[]{0, 2, 5, 8}),
+                arguments(new int[]{6, 4, 8, 1}, new int[]{1, 4, 6, 8}),
+                arguments(new int[]{0, 5, 7, 9}, new int[]{0, 5, 7, 9})
         );
     }
-
-
-    @ParameterizedTest(name="#{index} - Test with Argument={0},{1}")
-    @MethodSource("test_provide")
-    public void Priority_run(int[] random_arrary, int[] correct_answer){
-        PriorityQueue<Integer> test = new PriorityQueue<Integer>();
-        int[] result = new int[random_arrary.length];
-
-        //todo add
-        for (int i=0;i < random_arrary.length; i++) {
-            test.add(random_arrary[i]);
-            //System.out.print(random_arrary[i] + " \n");
+    @ParameterizedTest
+    @MethodSource("streamParameters")
+    public void parameterizedTest(int[] random_array, int[] correct_array) {
+        PriorityQueue pqTester = new PriorityQueue();
+        for (int e : random_array) {
+            // offer: Inserts the specified element into this priority queue.
+            pqTester.offer(e);
         }
-
-
-        //todo get result
-        for (int i=0;i < random_arrary.length; i++) {
-            result[i] = test.poll();
-            //System.out.print(result[i] + " \n");
+        for (int e : correct_array) {
+            // poll: Retrieves and removes the head of this queue, or returns null if this queue is empty.
+            assertEquals(e, pqTester.poll());
         }
-
-        assertArrayEquals(correct_answer,result);
-
     }
-
-    //TODO 3 expected
-
     @Test
-    public void Exception_null_add() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
-            new PriorityQueue().add(null);
-        });
-
-    }
-
-
-    @Test
-    public void Exception_null_poll() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
-            Priority_run(null,null);
-        });
-
-    }
-
-
-
-    @Test
-    public void Exception_Fake() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+    public void initialCapacityTest() {
+        // Throws: IllegalArgumentException - if initialCapacity is less than 1
+        assertThrows(IllegalArgumentException.class, () -> {
             new PriorityQueue(0);
         });
-
     }
 
+    @Test
+    public void offerTest() {
+        // Throws: NullPointerException - if the specified element is null
+        assertThrows(NullPointerException.class, () -> new PriorityQueue().offer(null));
+    }
+
+    @Test
+    public void addTest() {
+        // Throws: NullPointerException - if the specified element is null
+        assertThrows(NullPointerException.class, () -> new PriorityQueue().add(null));
+    }
 }
